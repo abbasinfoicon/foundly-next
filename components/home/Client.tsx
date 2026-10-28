@@ -23,18 +23,18 @@ const middleRow: ClientLogo[] = [
   { name: "ABC Decorative", src: "/assets/image/client-logos/10.webp" },
   { name: "Ask Era Immigration", src: "/assets/image/client-logos/11.webp" },
   { name: "The Next", src: "/assets/image/client-logos/12.webp" },
-  { name: "JDASS", src: "/assets/image/client-logos/1.webp" },
-  { name: "Client green wordmark", src: "/assets/image/client-logos/2.webp" },
+  { name: "JDASS", src: "/assets/image/client-logos/01.webp" },
+  { name: "Client green wordmark", src: "/assets/image/client-logos/02.webp" },
 ]
 
 const bottomRow: ClientLogo[] = [
-  { name: "Gyre City", src: "/assets/image/client-logos/3.webp" },
-  { name: "Oria Botanica", src: "/assets/image/client-logos/4.webp" },
-  { name: "Client green wordmark", src: "/assets/image/client-logos/5.webp" },
-  { name: "Mezbaan", src: "/assets/image/client-logos/6.webp" },
-  { name: "LunchLink", src: "/assets/image/client-logos/7.webp" },
-  { name: "Dadhwal Realty", src: "/assets/image/client-logos/8.webp" },
-  { name: "Vice-Roy", src: "/assets/image/client-logos/9.webp" },
+  { name: "Gyre City", src: "/assets/image/client-logos/03.webp" },
+  { name: "Oria Botanica", src: "/assets/image/client-logos/04.webp" },
+  { name: "Client green wordmark", src: "/assets/image/client-logos/05.webp" },
+  { name: "Mezbaan", src: "/assets/image/client-logos/06.webp" },
+  { name: "LunchLink", src: "/assets/image/client-logos/07.webp" },
+  { name: "Dadhwal Realty", src: "/assets/image/client-logos/08.webp" },
+  { name: "Vice-Roy", src: "/assets/image/client-logos/09.webp" },
 ]
 
 function LogoRow({ logos }: { logos: ClientLogo[] }) {
