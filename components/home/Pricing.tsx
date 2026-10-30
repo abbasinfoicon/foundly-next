@@ -136,18 +136,18 @@ export default function Pricing() {
       <div className="mx-auto max-w-[1240px]">
         {/* Foundly.ai pricing section heading */}
         <header className="mx-auto mb-[42px] max-w-[520px] text-center">
-          <p className="mb-3 text-[11px] sm:text-[13px] font-medium uppercase tracking-[0.13em] text-[var(--primary-color)]">
-            Pricing
-          </p>
-          <h2
-            id="foundly-pricing-title"
-            className="text-[38px] font-medium leading-[1.08] tracking-[-0.065em] sm:text-[48px] lg:text-[58px]"
-          >
-            Everything you need
-            <br />
-            to <span className="text-[var(--primary-color)]">get found online</span>
+          <div className="mb-6 flex items-center justify-center gap-4">
+            <span className="hidden h-px w-20 bg-gradient-to-r from-transparent to-blue-200 sm:block" />
+            <p className="subtitle inline-flex items-center gap-2 rounded-full border border-[#245ae2]/10 bg-gradient-to-r from-white via-[#f5f7ff] to-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--primary-color)] shadow-[0_2px_12px_rgba(36,90,226,0.08)]">
+              <span className="text-base leading-none">✦</span>
+              Pricing
+            </p>
+            <span className="hidden h-px w-20 bg-gradient-to-l from-transparent to-blue-200 sm:block" />
+          </div>
+          <h2 className="title mt-4 font-medium leading-[1.08] tracking-[-0.065em]">
+            Everything you need to <span className="text-[var(--primary-color)]">get found online</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-[560px] text-[16px] sm:text-[20px] leading-[1.65] text-[#55556b]">
+          <p className="desc mx-auto mt-5 leading-[1.65] text-[#737381]">
             30 SEO-optimized articles, backlinks and social posts — all for one
             price, every month.
           </p>

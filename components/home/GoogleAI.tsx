@@ -13,7 +13,6 @@ import {
   FiShield,
   FiChevronRight,
 } from "react-icons/fi";
-import { SiGoogle } from "react-icons/si";
 
 type Tag = {
   label: string;
@@ -195,30 +194,33 @@ function SearchCard({ result }: { result: SearchResult }) {
 const settings = {
   dots: false,
   arrows: false,
-  infinite: results.length > 3,
-  autoplay: true,
-  autoplaySpeed: 4000,
+  infinite: false,
+  autoplay: false,
   speed: 600,
   pauseOnHover: true,
   pauseOnFocus: true,
   swipeToSlide: true,
   draggable: true,
   variableWidth: false,
+  centerMode: false,
+  initialSlide: 0,
   slidesToShow: 3.5,
   slidesToScroll: 1,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 2.5,
         slidesToScroll: 1,
+        infinite: false,
       },
     },
     {
       breakpoint: 640,
       settings: {
-        slidesToShow: 1,
+        slidesToShow: 1.5,
         slidesToScroll: 1,
+        infinite: false,
       },
     },
   ],

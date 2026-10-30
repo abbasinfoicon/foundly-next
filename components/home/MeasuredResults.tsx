@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState  } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,7 +16,9 @@ import {
   type ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { FiCheck, FiCalendar, FiArrowUpRight } from "react-icons/fi";
+import { FiCalendar, FiArrowUpRight } from "react-icons/fi";
+import { BiChevronDown } from "react-icons/bi";
+import { BsArrowRight } from "react-icons/bs";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -114,16 +116,66 @@ const monthLabels = [
 ];
 
 function Sparkline({ values, active }: { values: number[]; active: boolean }) {
-  const points = values.map((value, index) => `${(index / (values.length - 1)) * 100},${26 - (value / 100) * 22}`).join(" ");
+  const gradientId = useId().replace(/:/g, "");
+
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+
+  const points = values.map((value, index) => {
+    const x = (index / (values.length - 1)) * 100;
+    const y = 25 - ((value - min) / range) * 19;
+    return `${x},${y}`;
+  });
+
+  const linePath = points
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${point}`)
+    .join(" ");
+
+  const areaPath = `${linePath} L 100,28 L 0,28 Z`;
+
   return (
-    <svg viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true" className={`h-[28px] w-full ${active ? "text-[#4285f4]" : "text-[#b6bfd1]"}`}>
-      <polyline points={points} fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+    <svg
+      viewBox="0 0 100 28"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      className="h-[42px] w-full overflow-visible"
+    >
+      <defs>
+        <linearGradient
+          id={gradientId}
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="1"
+        >
+          <stop offset="0%" stopColor="currentColor" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+
+      {/* Gradient area */}
+      <path
+        d={areaPath}
+        fill={`url(#${gradientId})`}
+      />
+
+      {/* Trend line */}
+      <path
+        d={linePath}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+      />
     </svg>
   );
 }
 
 export default function MeasuredResults() {
-  const [selectedId, setSelectedId] = useState("chase");
+  const [selectedId, setSelectedId] = useState("next-level");
   const selected = businesses.find((business) => business.id === selectedId) ?? businesses[0];
 
   const chartData = useMemo<ChartData<"line">>(() => {
@@ -142,25 +194,25 @@ export default function MeasuredResults() {
           label: "Total impressions",
           data: impressions,
           borderColor: "#6235bd",
-          backgroundColor: "rgba(98, 53, 189, 0.035)",
+          backgroundColor: "rgba(129, 81, 237, 0.10)",
           borderWidth: 1.6,
           pointRadius: 0,
           pointHoverRadius: 3,
           tension: 0.12,
           yAxisID: "y1",
-          fill: false,
+          fill: true,
         },
         {
           label: "Total clicks",
           data: clicks,
           borderColor: "#4285f4",
-          backgroundColor: "rgba(66, 133, 244, 0.04)",
+          backgroundColor: "rgba(22, 139, 255, 0.13)",
           borderWidth: 1.5,
           pointRadius: 0,
           pointHoverRadius: 3,
           tension: 0.12,
           yAxisID: "y",
-          fill: false,
+          fill: true,
         },
       ],
     };
@@ -186,7 +238,7 @@ export default function MeasuredResults() {
         border: { display: false },
         ticks: {
           color: "#9293a3",
-          maxTicksLimit: 3,
+          maxTicksLimit: 12,
           maxRotation: 0,
           font: { size: 10 },
         },
@@ -195,7 +247,7 @@ export default function MeasuredResults() {
         position: "left",
         min: 0,
         max: Math.max(180, selected.clickBase * 9),
-        grid: { color: "#ececf2", drawTicks: false },
+        grid: { color: "rgba(221,229,245,0.75)", drawTicks: false },
         border: { display: false },
         ticks: { color: "#9293a3", count: 4, padding: 8, font: { size: 10 } },
       },
@@ -217,25 +269,37 @@ export default function MeasuredResults() {
   }), [selected]);
 
   return (
-    <section id="results-proof" aria-labelledby="measured-results-title" className="w-full overflow-hidden bg-[#faf9ff] px-5 pb-[78px] pt-[84px] text-[#111116] sm:px-8 sm:pt-[88px] lg:pb-[80px]">
-      {/* Foundly.ai measured results heading */}
+    <section id="results-proof" aria-labelledby="measured-results-title" className="mr-results-section w-full overflow-hidden bg-[#f3f6ff] px-4 pb-[76px] pt-[84px] text-[#101936] sm:px-6 lg:px-8">
+      {/* Keep the existing section heading exactly as supplied */}
       <header className="mx-auto flex max-w-[720px] flex-col items-center text-center">
-        <p className="text-[11px] sm:text-[13px] font-semibold uppercase tracking-[0.17em] text-[var(--primary-color)]">Measured results</p>
-        <h2 id="measured-results-title" className="mt-[13px] max-w-[650px] text-[36px] font-medium leading-[1.08] tracking-[-0.06em] sm:text-[48px] lg:text-[58px]">
-          See how businesses
-          <br />
-          grow their <span className="text-[var(--primary-color)]">Google visibility</span>
+        <div className="mb-6 flex items-center justify-center gap-4">
+          <span className="hidden h-px w-20 bg-gradient-to-r from-transparent to-blue-200 sm:block" />
+          <p className="subtitle inline-flex items-center gap-2 rounded-full border border-[#245ae2]/10 bg-gradient-to-r from-white via-[#f5f7ff] to-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--primary-color)] shadow-[0_2px_12px_rgba(36,90,226,0.06)]">
+            <span className="text-base leading-none">✦</span>PROVEN IMPACT
+          </p>
+          <span className="hidden h-px w-20 bg-gradient-to-l from-transparent to-blue-200 sm:block" />
+        </div>
+        <h2 className="title mt-4 font-medium leading-[1.08] tracking-[-0.065em]">
+          Real results from real <span className="text-[var(--primary-color)]">business owners</span>
         </h2>
-        <p className="mt-[17px] max-w-[610px] text-[14px] sm:text-[20px] leading-[1.65] tracking-[-0.015em] text-[#6f6f7e]">
-          These are real Google results from Foundly.ai customers. Pick a business to see how more people found them online.
+        <p className="desc mx-auto mt-5 max-w-[991px] text-center leading-[1.65] text-[#555463]">
+          See how brands use Foundly.ai to dominate search results and turn impressions into loyal customers.
         </p>
       </header>
 
-      {/* Select a client property using accessible tabs */}
       <div className="mx-auto mt-[50px] max-w-[1240px]">
-        <div role="tablist" aria-label="Choose a client property" className="flex justify-between gap-[9px] overflow-x-auto pb-[13px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {businesses.map((business) => {
+        {/* Client selector cards */}
+        <div role="tablist" aria-label="Choose a client property" className="mr-client-grid grid grid-cols-1 gap-2 pb-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {businesses.map((business, index) => {
             const active = selectedId === business.id;
+            const growth = [18, 24, 12, 36, 28][index];
+            const tones = [
+              "text-[#398cff] from-[#dcecff]",
+              "text-[#8b5cf6] from-[#eee4ff]",
+              "text-[#ff987c] from-[#ffebe3]",
+              "text-[#21c7c1] from-[#dcfbf7]",
+              "text-[#398cff] from-[#dcecff]",
+            ];
             return (
               <button
                 key={business.id}
@@ -245,74 +309,102 @@ export default function MeasuredResults() {
                 aria-selected={active}
                 aria-controls="business-panel"
                 onClick={() => setSelectedId(business.id)}
-                className={`flex h-auto max-w-[246px] shrink-0 flex-col rounded-[14px] border bg-white px-[12px] pb-[9px] pt-[10px] text-left shadow-[0_3px_9px_rgba(25,20,60,0.07)] transition-all duration-200 ${active ? "border-[#a69bff] ring-1 ring-[var(--primary-color)] shadow-[0_7px_16px_rgba(101,83,255,0.12)]" : "border-[#e8e7ef] hover:border-[#c9c3ff]"}`}
+                className={`mr-client-card group relative flex min-h-[188px] min-w-0 w-full flex-col rounded-[19px] border bg-white p-[17px] text-left shadow-[0_7px_22px_rgba(38,60,120,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(38,60,120,0.13)] ${active ? "border-[#397bff] ring-2 ring-[#397bff]/20 shadow-[0_10px_25px_rgba(57,123,255,0.20)]" : "border-[#e8edf7]"}`}
               >
-                <span className="flex w-full min-w-0 items-center gap-[8px]">
-                  <span className="flex h-[27px] w-[27px] shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#efeff3] bg-white">
-                    <Image src={business.logo} alt="" width={27} height={27} className="h-full w-full object-contain" />
+                {active && <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#168bff] to-[#625cff] text-white shadow-lg"><BsArrowRight/></span>}
+                <span className="flex min-w-0 items-center gap-3 pr-7">
+                  <span className="flex h-[43px] w-[43px] shrink-0 items-center justify-center overflow-hidden rounded-full border border-white bg-white shadow-[0_3px_12px_rgba(37,70,130,0.12)]">
+                    <Image src={business.logo} alt="" width={43} height={43} className="h-full w-full object-contain p-1" />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <strong className="block line-clamp-2 text-[12px] sm:text-[14px] font-medium leading-[1.3] tracking-[-0.025em] text-[#202027]">{business.name}</strong>
-                    <span className="mt-[3px] block truncate text-[10px] sm:text-[12px] leading-[1.2] text-[#777786]">{business.category} · {business.location}</span>
+                    <strong className="block line-clamp-2 text-[12px] font-semibold leading-[1.2] tracking-[-0.025em] text-[#111a35] sm:text-[14px]">{business.name}</strong>
+                    <span className="mt-1 block truncate text-[10px] leading-tight text-[#77829f] sm:text-[12px]">{business.category} · {business.location}</span>
                   </span>
                 </span>
-                <span className="mt-auto block w-full">
-                  <Sparkline values={business.spark} active={active} />
-                  <span className="mt-3 block text-[10px] sm:text-[12px] font-medium text-[#686877]">{business.clicks} clicks</span>
+                <span className="mt-3 block w-full">
+                  <span className={`block ${tones[index].split(" ")[0]}`}>
+                    <Sparkline values={business.spark} active={active} />
+                  </span>
                 </span>
+                <span className="mt-auto flex items-center gap-2 pt-2">
+                  <strong className="text-[18px] font-bold tracking-[-0.04em] text-[#111a35]">{business.clicks}</strong>
+                  <span className="rounded-full bg-[#e9fbf2] px-2 py-0.5 text-[10px] sm:text-[12px] font-semibold text-[#07934f]">↑ {growth}%</span>
+                </span>
+                <span className="text-[11px] text-[#7c87a2]">Total clicks</span>
               </button>
             );
           })}
         </div>
 
-        {/* Selected business performance panel */}
-        <div id="business-panel" role="tabpanel" aria-labelledby={`business-tab-${selected.id}`} className="mt-[18px] rounded-[20px] border border-[#e7e5ee] bg-white px-[18px] pb-[24px] pt-[22px] shadow-[0_15px_35px_rgba(65,49,140,0.12)] sm:px-[22px] sm:pb-[27px] sm:pt-[24px]">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h3 className="text-[16px] sm:text-[21px] font-medium leading-[1.3] tracking-[-0.035em] text-[#17171d]">{selected.name}</h3>
-              <p className="mt-[4px] text-[11px] sm:text-[14px] text-[#747483]">{selected.category} · {selected.location}</p>
+        {/* Selected client dashboard */}
+        <div id="business-panel" role="tabpanel" aria-labelledby={`business-tab-${selected.id}`} className="relative overflow-hidden rounded-[25px] border border-white/90 bg-white/75 p-4 shadow-[0_18px_50px_rgba(45,67,130,0.12)] backdrop-blur-2xl sm:p-4 lg:p-6 bg-contain bg-right-top bg-no-repeat" style={{backgroundImage: "url('/assets/image/bg/chart-bg.webp')"}}>
+          <div className="pointer-events-none absolute -right-10 -top-24 h-[340px] w-[550px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(142,112,255,0.24),rgba(84,170,255,0.13)_45%,transparent_72%)] blur-2xl" />
+          <div className="pointer-events-none absolute right-[9%] top-[-35px] h-[240px] w-[300px] rotate-[-18deg] rounded-[48%] bg-gradient-to-br from-[#d8c5ff]/70 via-[#b8dfff]/50 to-transparent blur-xl" />
+
+          <div className="relative z-10 flex flex-wrap items-start justify-between gap-5">
+            <div className="flex min-w-0 items-center gap-4 sm:gap-7">
+              <span className="flex h-[76px] w-[76px] shrink-0 items-center justify-center overflow-hidden rounded-full border border-white bg-white shadow-[0_7px_24px_rgba(54,83,150,0.12)] sm:h-[100px] sm:w-[100px]">
+                <Image src={selected.logo} alt="" width={100} height={100} className="h-full w-full object-contain p-3" />
+              </span>
+              <div className="min-w-0">
+                <h3 className="text-[20px] font-bold leading-tight tracking-[-0.055em] text-[#101936] sm:text-[24px]">{selected.name}</h3>
+                <p className="text-[12px] text-[#7b86a4] sm:text-[16px]">{selected.category} · {selected.location}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {["VR games", "Group events", "Parties"].map((tag, i) => (
+                    <span key={tag} className="inline-flex items-center gap-1.5 rounded-full bg-[#e7efff] px-3 py-1.5 text-[11px] font-semibold text-[#2464e9] sm:text-[13px]">
+                      <span>{["◈", "◎", "⊙"][i]}</span>{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
-            <span className="inline-flex h-[27px] items-center gap-[6px] rounded-[8px] border border-[#ecebf1] px-[10px] text-[10px] sm:text-[11px] font-medium text-[#777785]">
-              <FiCalendar className="h-[12px] w-[12px]" />
-              Last 12 months
+            <span className="relative z-10 inline-flex h-[52px] items-center gap-3 rounded-[18px] border border-white bg-white/90 px-5 text-[14px] font-semibold text-[#182342] shadow-[0_6px_20px_rgba(52,70,130,0.09)]">
+              <FiCalendar className="h-5 w-5 text-[#475a8b]" />Last 12 months <span className="text-[#7b86a4]"><BiChevronDown className="h-5 w-5 text-[#475a8b]"/></span>
             </span>
           </div>
 
-          {/* Google Search Console-style KPI tiles */}
-          <div className="mt-[15px] grid grid-cols-1 overflow-hidden rounded-[11px] sm:grid-cols-3">
-            <div className="min-h-[76px] bg-[#4285f4] px-[12px] py-[10px] text-white sm:px-[13px]">
-              <p className="flex items-center gap-[6px] text-[10px] sm:text-[13px] font-medium"><FiCheck className="h-[11px] w-[11px] rounded-[2px] bg-white p-[1px] text-[#4285f4]" />Total clicks</p>
-              <p className="mt-[5px] text-[30px] sm:text-[38px] font-medium leading-none tracking-[-0.06em]">{selected.clicks}</p>
+          {/* Large colorful metric cards */}
+          <div className="relative z-10 mt-7 grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="mr-kpi-card relative min-h-[153px] overflow-hidden rounded-[19px] bg-gradient-to-br from-[#168fff] via-[#3289f7] to-[#4168f5] p-5 text-white shadow-[0_10px_25px_rgba(34,126,255,0.25)] sm:p-6">
+              <div className="absolute -bottom-5 right-3 flex h-28 items-end gap-1.5 opacity-20">{[35, 52, 70, 90].map((h, i) => <span key={i} style={{ height: `${h}px` }} className="w-[18px] rounded-t-md bg-white" />)}</div>
+              <div className="relative flex items-center gap-3"><span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-white/20 text-[27px]">↖</span><span className="text-[15px] font-semibold">Total clicks <span className="ml-1 text-white/70">ⓘ</span></span></div>
+              <p className="relative mt-2 text-[39px] font-bold leading-none tracking-[-0.06em] sm:text-[43px]">{selected.clicks}</p>
+              <p className="relative mt-2 inline-flex rounded-full bg-white/95 px-3 py-1 text-[12px] font-bold text-[#078b50]">↑ 28% <span className="ml-2 font-medium text-[#314b77]">vs previous 12 months</span></p>
             </div>
-            <div className="min-h-[76px] bg-[#6036b3] px-[12px] py-[10px] text-white sm:px-[13px]">
-              <p className="flex items-center gap-[6px] text-[10px] sm:text-[13px] font-medium"><FiCheck className="h-[11px] w-[11px] rounded-[2px] bg-white p-[1px] text-[#6036b3]" />Total impressions</p>
-              <p className="mt-[5px] text-[30px] sm:text-[38px] font-medium leading-none tracking-[-0.06em]">{selected.impressions}</p>
+            <div className="mr-kpi-card relative min-h-[153px] overflow-hidden rounded-[19px] bg-gradient-to-br from-[#8151e7] via-[#7041d2] to-[#5d35bb] p-5 text-white shadow-[0_10px_25px_rgba(105,61,205,0.24)] sm:p-6">
+              <div className="absolute -bottom-5 right-3 flex h-28 items-end gap-1.5 opacity-20">{[40, 58, 78, 96].map((h, i) => <span key={i} style={{ height: `${h}px` }} className="w-[18px] rounded-t-md bg-white" />)}</div>
+              <div className="relative flex items-center gap-3"><span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-white/20 text-[25px]">◉</span><span className="text-[15px] font-semibold">Total impressions <span className="ml-1 text-white/70">ⓘ</span></span></div>
+              <p className="relative mt-2 text-[39px] font-bold leading-none tracking-[-0.06em] sm:text-[43px]">{selected.impressions}</p>
+              <p className="relative mt-2 inline-flex rounded-full bg-white/95 px-3 py-1 text-[12px] font-bold text-[#078b50]">↑ 42% <span className="ml-2 font-medium text-[#51466f]">vs previous 12 months</span></p>
             </div>
-            <div className="min-h-[76px] bg-[#f0f1f2] px-[12px] py-[10px] text-[#62666c] sm:px-[13px]">
-              <p className="flex items-center gap-[6px] text-[10px] sm:text-[13px] font-medium"><span className="h-[11px] w-[11px] rounded-[2px] border border-[#a6aab0]" />Average CTR</p>
-              <p className="mt-[5px] text-[30px] sm:text-[38px] font-medium leading-none tracking-[-0.06em]">{selected.ctr}</p>
+            <div className="mr-kpi-card relative min-h-[153px] overflow-hidden rounded-[19px] border border-white bg-white/80 p-5 text-[#101936] shadow-[0_8px_22px_rgba(52,70,130,0.08)] sm:p-6">
+              <div className="absolute -bottom-5 right-3 flex h-28 items-end gap-1.5 opacity-15">{[35, 54, 76, 98].map((h, i) => <span key={i} style={{ height: `${h}px` }} className="w-[18px] rounded-t-md bg-[#338cff]" />)}</div>
+              <div className="relative flex items-center gap-3"><span className="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#edf3ff] text-[25px] text-[#111a35]">▥</span><span className="text-[15px] font-semibold">Average CTR <span className="ml-1 text-[#8c98b4]">ⓘ</span></span></div>
+              <p className="relative mt-2 text-[39px] font-bold leading-none tracking-[-0.06em] sm:text-[43px]">{selected.ctr}</p>
+              <p className="relative mt-2 inline-flex rounded-full bg-[#e9fbf2] px-3 py-1 text-[12px] font-bold text-[#078b50]">↑ 12% <span className="ml-2 font-medium text-[#7b86a4]">vs previous 12 months</span></p>
             </div>
           </div>
 
-          {/* Responsive Chart.js clicks and impressions chart */}
-          <div className="mt-[15px]">
-            <div className="mb-[2px] flex justify-between px-[44px] text-[10px] sm:text-[13px] text-[#858596]">
-              <span>Clicks</span>
-              <span>Impressions</span>
-            </div>
-            <div className="relative h-[245px] w-full sm:h-[275px] lg:h-[278px]">
-              <Line data={chartData} options={chartOptions} />
-              <div className="pointer-events-none absolute left-[21.8%] top-[2px] hidden h-[calc(100%-23px)] border-l border-dashed border-[#7965ff] sm:block" />
-              <div className="pointer-events-none absolute left-[21.8%] top-[3px] hidden rounded-[4px] border border-[#ded9ff] bg-white px-[6px] py-[2px] text-[10px] sm:text-[12px] text-[#4c4c5c] shadow-sm sm:block">
-                <span className="font-semibold text-[var(--primary-color)]">foundly.ai</span> starts
+          {/* Chart panel */}
+          <div className="mr-chart-panel relative z-10 mt-5 rounded-[20px] border border-white bg-white/90 p-4 shadow-[0_8px_25px_rgba(46,67,125,0.07)] sm:p-6">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-6 text-[13px] font-semibold text-[#596789]">
+                <span className="inline-flex items-center gap-2"><i className="h-3.5 w-3.5 rounded-full bg-[#168bff]" />Clicks</span>
+                <span className="inline-flex items-center gap-2"><i className="h-3.5 w-3.5 rounded-full bg-[#8151ed]" />Impressions</span>
+              </div>
+              <div className="flex rounded-xl border border-[#e9edfa] bg-[#f7f9ff] p-1 text-[12px] font-semibold text-[#667393]">
+                <span className="rounded-lg px-4 py-1.5">Day</span><span className="rounded-lg px-4 py-1.5">Week</span><span className="rounded-lg bg-gradient-to-r from-[#398cff] to-[#7060f5] px-4 py-1.5 text-white shadow">Month</span>
               </div>
             </div>
+            <div className="relative h-[260px] w-full sm:h-[310px] lg:h-[330px]">
+              <Line data={chartData} options={chartOptions} />
+            </div>
           </div>
 
-          <div className="mt-[10px] flex flex-wrap items-center justify-between gap-2 border-t border-[#f0eff4] pt-[12px]">
-            <p className="text-[12px] sm:text-[14px] text-[#858596]">Illustrative performance visualization based on the selected customer metrics.</p>
-            <Link href={selected.href} className="inline-flex items-center gap-1 text-[12px] sm:text-[14px] font-medium text-[var(--primary-color)] transition hover:text-[#4937dc]">
-              Explore case study <FiArrowUpRight className="h-[13px] w-[13px]" />
+          <div className="relative z-10 mt-5 flex flex-wrap items-center justify-between gap-3 px-1">
+            <p className="inline-flex items-center gap-3 text-[12px] text-[#7b86a4] sm:text-[14px]"><span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[20px] text-[#8656ff] shadow">♧</span>Illustrative performance visualization based on the selected customer metrics.</p>
+            <Link href={selected.href} className="inline-flex items-center gap-3 rounded-full border border-[#dce7ff] bg-white px-5 py-3 text-[13px] font-bold text-[#1768ff] shadow-[0_5px_18px_rgba(50,110,255,0.12)] transition hover:-translate-y-0.5 hover:shadow-lg sm:text-[15px]">
+              Explore case study <FiArrowUpRight className="h-5 w-5" />
             </Link>
           </div>
         </div>

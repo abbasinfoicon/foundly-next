@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { FiArrowUpRight, FiCheckCircle } from "react-icons/fi";
 import { LuSparkles } from "react-icons/lu";
 
@@ -149,50 +152,92 @@ function PerformanceMetrics() {
 
 function TestimonialCard({ story }: { story: Story }) {
   return (
-    <figure className="relative flex h-full flex-col rounded-[16px] border border-[#e9e8f0] bg-white p-5 shadow-[0_8px_22px_rgba(36,30,90,0.07)]">
-      <span aria-hidden="true" className="absolute right-4 top-1 text-[88px] font-serif leading-none text-[#e9e5ff]">“</span>
-      <header className="relative z-[1] flex items-center gap-3 pr-5">
-        <Image src={story.avatar} alt="" width={36} height={36} className="h-9 w-9 shrink-0 rounded-full object-cover" />
+    <figure className="group relative flex h-full min-h-0 flex-col overflow-hidden rounded-[22px] border border-white/90 bg-white/90 p-5 shadow-[0_12px_32px_rgba(48,70,150,0.09)] ring-1 ring-[#dce6ff]/70 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(55,90,190,0.14)] sm:p-6">
+      <span aria-hidden="true" className="pointer-events-none absolute right-5 top-3 text-[76px] font-serif leading-[0.9] text-[#e7e2ff] sm:text-[84px]">“</span>
+      <header className="relative z-[1] flex items-center gap-3 pr-8">
+        <Image src={story.avatar} alt="" width={48} height={48} className="h-11 w-11 shrink-0 rounded-full border-2 border-white object-cover shadow-[0_3px_12px_rgba(36,90,226,0.14)] sm:h-12 sm:w-12" />
         <div className="min-w-0">
           <p className="flex items-center text-[15px] sm:text-[18px] font-medium leading-[1.35] tracking-[-0.02em] text-[#11111a]">{story.name}{story.verified && <VerifiedMark />}</p>
           <p className="mt-0.5 text-[12px] sm:text-[15px] leading-[1.4] text-[#353548]">{story.role}</p>
           <p className="mt-0.5 text-[10px] sm:text-[13px] leading-[1.4] text-[#777789]">{story.meta}</p>
         </div>
       </header>
-      <blockquote className="mt-3 text-[15px] sm:text-[18px] leading-[1.57] tracking-[-0.015em] text-[#171727] [&_mark]:rounded-[3px] [&_mark]:bg-[#ece8ff] [&_mark]:px-[2px] [&_mark]:text-[var(--primary-color)]">
+      <blockquote className="relative z-[1] mt-4 text-[15px] leading-[1.62] tracking-[-0.012em] text-[#202b49] sm:text-[17px] [&_mark]:rounded-[5px] [&_mark]:bg-[#e8edff] [&_mark]:px-1 [&_mark]:py-[1px] [&_mark]:text-[#245ae2]">
         {story.quote}
       </blockquote>
       {story.rich === "chart" && <TrendChart />}
       {story.rich === "metrics" && <PerformanceMetrics />}
-      <figcaption className="mt-auto border-t border-[#efedf4] pt-2.5 text-[10px] sm:text-[13px] leading-[1.4] text-[#777789]">{story.date}</figcaption>
+      <figcaption className="mt-auto border-t border-[#e9edf7] pt-3 text-[11px] leading-[1.4] text-[#7b86a4] sm:text-[13px]">
+        {story.date}
+      </figcaption>
     </figure>
   );
 }
 
+const testimonialSliderSettings = {
+  dots: true,
+  arrows: false,
+  infinite: true,
+  autoplay: true,
+  autoplaySpeed: 4500,
+  speed: 650,
+  pauseOnHover: true,
+  pauseOnFocus: true,
+  swipeToSlide: true,
+  draggable: true,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  adaptiveHeight: false,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 640,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+      },
+    },
+  ],
+};
+
 export default function BusinessesTestimonial() {
   return (
-    <section id="testimonials" aria-labelledby="foundly-testimonials-title" className="bg-[#fbfaff] px-4 py-12 text-[#11111a] sm:px-6 sm:py-14 lg:px-8 lg:py-12">
+    <section id="testimonials" aria-labelledby="foundly-testimonials-title" className="bg-[#fbfaff] px-4 py-12 text-[#11111a] sm:px-6 sm:py-14 lg:px-8 lg:py-12 bg-cover" style={{ backgroundImage: "url(/assets/image/bg/testimonial-bg.webp)" }}>
       <div className="mx-auto max-w-[1240px]">
-        <header className="mb-10 text-center sm:mb-12">
-          <h2 id="foundly-testimonials-title" className="mx-auto text-[38px] font-medium leading-[1.08] tracking-[-0.065em] sm:text-[58px]">
-            Used by businesses<br className="hidden sm:block" /> that want to <em className="not-italic text-[var(--primary-color)]">get found</em>
+        <header className="relative z-40 mx-auto max-w-[850px] text-center">
+          <div className="mb-6 flex items-center justify-center gap-4">
+            <span className="hidden h-px w-20 bg-gradient-to-r from-transparent to-blue-200 sm:block" />
+            <p className="subtitle inline-flex items-center gap-2 rounded-full border border-[#245ae2]/10 bg-gradient-to-r from-white via-[#f5f7ff] to-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--primary-color)] shadow-[0_2px_12px_rgba(36,90,226,0.08)]">
+              <span className="text-base leading-none">✦</span>
+              CLIENT STORIES
+            </p>
+            <span className="hidden h-px w-20 bg-gradient-to-l from-transparent to-blue-200 sm:block" />
+          </div>
+          <h2 className="title mt-4 font-medium leading-[1.08] tracking-[-0.065em]">
+            Real results  from real <span className="block text-[var(--primary-color)]">business owners</span>
           </h2>
+          <p className="desc mx-auto mt-5 leading-[1.65] text-[#737381]">
+            Help brands grow visibility across Google and AI search, turning clicks into customers.
+          </p>
         </header>
 
-        <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="flex flex-col gap-4">
-            <TestimonialCard story={stories[0]} />
-            <TestimonialCard story={stories[1]} />
-          </div>
-          <div className="flex flex-col gap-4">
-            <TestimonialCard story={stories[2]} />
-            <TestimonialCard story={stories[3]} />
-            <TestimonialCard story={stories[4]} />
-          </div>
-          <div className="flex flex-col gap-4 sm:col-span-2 lg:col-span-1">
-            <TestimonialCard story={stories[5]} />
-            <TestimonialCard story={stories[6]} />
-          </div>
+        <div className="testimonial-slider-wrap relative mt-[50px]">
+          <Slider {...testimonialSliderSettings}>
+            {stories.map((story) => (
+              <div key={story.name} className="h-full px-2 pb-8 pt-2">
+                <div className="h-full min-h-[620px]">
+                  <TestimonialCard story={story} />
+                </div>
+              </div>
+            ))}
+          </Slider>
         </div>
 
         <div className="mt-7 flex justify-center">
