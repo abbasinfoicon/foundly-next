@@ -32,7 +32,7 @@ export default function ClaimOffer() {
       {/* Fixed promotional offer bar */}
       <aside
         aria-label="Foundly.ai limited-time offer"
-        className="fixed inset-x-0 top-0 z-[100] h-[48px] overflow-hidden border-b border-white/15 bg-[linear-gradient(100deg,#0b0820_0%,#20174f_48%,#100d27_100%)] text-white shadow-[0_3px_10px_rgba(10,8,30,0.28)]"
+        className="fixed inset-x-0 top-0 z-[100] h-[48px] overflow-hidden border-b border-white/15 bg-[image:var(--gradient-bg)] text-white shadow-[0_3px_10px_rgba(10,8,30,0.28)]"
       >
         {/* Soft highlight across the bar */}
         <span
@@ -88,7 +88,7 @@ export default function ClaimOffer() {
 
           <span aria-hidden="true" className="hidden h-[20px] w-px shrink-0 bg-white/20 lg:block" />
 
-          <p className="hidden whitespace-nowrap text-[12px] sm:text-[14px] text-[#c5c1d8] lg:block">
+          <p className="hidden whitespace-nowrap text-[12px] sm:text-[14px] text-white lg:block">
             Locked in for as long as you stay subscribed
           </p>
 

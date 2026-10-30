@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div className="sticky top-0 z-[100] w-full border-t border-[#e9e9ec] bg-white px-3 pt-3 sm:px-5 sm:pt-5">
       <header
-        className="relative mx-auto flex min-h-[76px] w-full max-w-[1240px] items-center justify-between rounded-[24px] border border-[#ededf1] bg-white px-5 py-3 shadow-[0_8px_24px_rgba(26,22,54,0.08)] sm:px-7 lg:px-8"
+        className="relative mx-auto flex min-h-[76px] w-full max-w-[1240px] items-center justify-between rounded-[99px] border border-[#ededf1] bg-white px-5 py-1 shadow-[0_8px_24px_rgba(26,22,54,0.08)] sm:px-7 lg:px-8"
       >
         <Link
           className="flex shrink-0 items-center"
@@ -22,7 +22,7 @@ const Header = () => {
           aria-label="Foundly AI home"
         >
           <img
-            className="block h-auto w-[132px] object-contain sm:w-[138px]"
+            className="block h-auto w-[152px] object-contain sm:w-[200px]"
             src="/assets/image/logo.png"
             alt="Foundly AI"
           />

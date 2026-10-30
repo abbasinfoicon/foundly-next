@@ -145,20 +145,20 @@ function SocialPostCard({
 }) {
   const isCenter = position === 0
   const positions: Record<number, string> = {
-    [-2]: "left-[0%] top-[2%] z-0 -rotate-[10deg] scale-[.78] opacity-55 blur-[2px] hover:blur-[0px] hover:scale-[.90] hover:opacity-100",
-    [-1]: "left-[13%] top-[0%] z-10 -rotate-[6deg] scale-[.9] opacity-80 hover:scale-100 hover:opacity-100",
-    [0]: "left-1/2 top-0 z-30 -translate-x-1/2 scale-100",
-    [1]: "right-[13%] top-[0%] z-10 rotate-[6deg] scale-[.9] opacity-80 hover:scale-100 hover:opacity-100",
-    [2]: "right-[0%] top-[2%] z-0 rotate-[10deg] scale-[.78] opacity-55 blur-[2px] hover:blur-[0px] hover:scale-[.90] hover:opacity-100",
+    [-2]: "left-[0%] top-[2%] z-0 -rotate-[10deg] [transform:perspective(1200px)_rotateY(18deg)] scale-[.78] opacity-55 blur-[2px] hover:blur-[0px] hover:scale-[.90] hover:opacity-100",
+    [-1]: "left-[13%] top-[0%] z-10 -rotate-[6deg] [transform:perspective(1200px)_rotateY(12deg)] scale-[.9] opacity-80 hover:scale-100 hover:opacity-100",
+    [0]: "left-1/2 top-0 z-30 -translate-x-1/2 [transform:perspective(1200px)_rotateY(0deg)_rotateX(2deg)] scale-100",
+    [1]: "right-[13%] top-[0%] z-10 rotate-[6deg] [transform:perspective(1200px)_rotateY(-12deg)] scale-[.9] opacity-80 hover:scale-100 hover:opacity-100",
+    [2]: "right-[0%] top-[2%] z-0 rotate-[10deg] [transform:perspective(1200px)_rotateY(-18deg)] scale-[.78] opacity-55 blur-[2px] hover:blur-[0px] hover:scale-[.90] hover:opacity-100",
   }
 
   return (
     <article
       aria-label={`${post.network} post by ${post.business}`}
-      className={`absolute flex w-[272px] max-w-[72vw] flex-col overflow-hidden rounded-[20px] border border-white/15 bg-gradient-to-br from-[#2b2939] via-[#252330] to-[#1e1d28] p-3 text-white shadow-[0_20px_60px_rgba(0,0,0,.28)] transition-all duration-500 sm:w-[322px] ${positions[position] ?? positions[0]
-        } ${isCenter ? "min-h-[440px]" : "min-h-[420px]"}`}
+      className={`absolute flex w-[272px] max-w-[72vw] flex-col overflow-hidden rounded-[24px] border border-white/30 bg-gradient-to-br from-[#38365b]/95 via-[#211e3d]/95 to-[#100f25]/95 p-3 text-white shadow-[0_25px_70px_rgba(0,0,0,.48),0_0_30px_rgba(90,100,255,.20),inset_0_1px_0_rgba(255,255,255,.30)] [transform-style:preserve-3d] [backface-visibility:hidden] transition-all duration-700 ease-out hover:border-[#a7a8ff]/70 hover:shadow-[0_30px_80px_rgba(0,0,0,.55),0_0_38px_rgba(107,92,255,.38),inset_0_1px_0_rgba(255,255,255,.42)] sm:w-[322px] ${positions[position] ?? positions[0]
+        } ${isCenter ? "min-h-[440px] ring-1 ring-white/10" : "min-h-[420px]"}`}
     >
-      <header className="mb-3 flex min-w-0 items-center gap-2">
+      <header className="mb-3 flex min-w-0 items-center gap-2 [transform:translateZ(12px)]">
         <NetworkIcon network={post.network} />
         <strong className="min-w-0 flex-1 truncate text-[13px] font-semibold tracking-[-0.02em] sm:text-[15px]">
           {post.business}
@@ -172,7 +172,7 @@ function SocialPostCard({
         </p>
       )}
 
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] bg-white/10">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[14px] border border-white/25 bg-white/10 shadow-[0_12px_28px_rgba(0,0,0,.28),inset_0_1px_0_rgba(255,255,255,.22)] [transform:translateZ(18px)]">
         <Image
           src={post.image}
           alt={`${post.business} social media creative`}
@@ -182,7 +182,7 @@ function SocialPostCard({
         />
       </div>
 
-      <footer className="mt-auto pt-3">
+      <footer className="mt-auto pt-3 [transform:translateZ(10px)]">
         {post.handle && (
           <p className="mb-2 line-clamp-2 text-[12px] sm:text-[13px] leading-[1.5] text-white/80">
             <span className="mr-1 font-semibold text-white">{post.handle}</span>
@@ -211,27 +211,26 @@ export default function PublishedForYou() {
     <section
       id="social"
       aria-labelledby="foundly-social-title"
-      className="relative isolate w-full overflow-hidden bg-[radial-gradient(ellipse_at_50%_4%,rgba(92,73,173,.38)_0%,rgba(43,34,77,.3)_36%,transparent_68%),linear-gradient(180deg,#282044_0%,#171226_49%,#08070d_100%)] px-4 pb-16 pt-16 text-white sm:px-6 sm:pb-20 sm:pt-[96px] lg:min-h-[900px] lg:pb-24"
+      className="relative isolate w-full overflow-hidden bg-[radial-gradient(ellipse_at_50%_4%,rgba(92,73,173,.38)_0%,rgba(43,34,77,.3)_36%,transparent_68%),linear-gradient(180deg,#282044_0%,#171226_49%,#08070d_100%)] px-4 pb-16 pt-16 text-white sm:px-6 sm:pb-20 sm:pt-[96px] lg:min-h-[900px] lg:pb-24 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/assets/image/bg/publish-bg.webp')" }}
     >
       {/* Foundly.ai social publishing section heading */}
-      <header className="relative z-40 mx-auto max-w-[720px] text-center">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.15em] text-[var(--primary-color)] sm:text-[13px]">
-          Published for you
-        </p>
+      <header className="relative z-40 mx-auto max-w-[820px] text-center">
+        <div className="mb-6 flex items-center justify-center gap-4">
+          <span className="hidden h-px w-20 bg-gradient-to-r from-transparent to-blue-200 sm:block" />
+          <p className="subtitle inline-flex items-center gap-2 rounded-full border border-[#245ae2]/10 bg-gradient-to-r from-white via-[#f5f7ff] to-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--primary-color)] shadow-[0_2px_12px_rgba(36,90,226,0.08)]">
+            <span className="text-base leading-none">✦</span>
+            OMNICHANNEL PRESENCE
+          </p>
+          <span className="hidden h-px w-20 bg-gradient-to-l from-transparent to-blue-200 sm:block" />
+        </div>
 
-        <h2
-          id="foundly-social-title"
-          className="mx-auto mt-4 max-w-[650px] text-[34px] font-medium leading-[1.08] tracking-[-0.065em] sm:text-[48px] md:text-[58px]"
-        >
-          Your business, posting
-          <span className="block">
-            on <span className="text-[var(--primary-color)]">every social platform</span>
-          </span>
+        <h2 className="title mt-4 font-medium leading-[1.08] tracking-[-0.065em]">
+          Your brand, appearing  everywhere <span className="text-[var(--primary-color)]"> customers search</span>
         </h2>
 
-        <p className="mx-auto mt-5 max-w-[560px] text-[18px] font-medium leading-[1.65] text-[#c2bfce] sm:text-[20px]">
-          Foundly.ai writes your posts and puts them on Instagram, Facebook,
-          LinkedIn and X. They sound like you.
+        <p className="desc mx-auto mt-5 leading-[1.65] text-[#c2c0c9]">
+          Foundly.ai writes, optimizes, and publishes content across Google, AI search engines, and social channels. It always sounds like you.
         </p>
       </header>
 

@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import Slider from "react-slick";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -120,7 +123,7 @@ function GoogleMark({ className = "" }: { className?: string }) {
 
 function SearchCard({ result }: { result: SearchResult }) {
   return (
-    <article className="flex h-full w-[352px] shrink-0 flex-col rounded-[19px] border border-[#e9e9ee] bg-white px-[22px] pb-[23px] pt-[22px] shadow-[0_4px_10px_rgba(17,17,25,0.06)] hover:shadow-[0_4px_10px_rgba(17,17,25,0.1)] transition-all duration-500 ease-in-out mt-[5px] hover:mt-[0px]">
+    <article className="flex h-full w-full shrink-0 flex-col rounded-[19px] border border-[#e9e9ee] bg-white px-[22px] pb-[23px] pt-[22px] shadow-[0_4px_10px_rgba(17,17,25,0.06)] hover:shadow-[0_4px_10px_rgba(17,17,25,0.1)] transition-all duration-500 ease-in-out mt-[5px] hover:mt-[0px]">
       {/* Search query bar */}
       <div className="flex h-[41px] min-w-0 items-center gap-[9px] rounded-full border border-[#e9e9ee] px-[13px] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
         <GoogleMark />
@@ -189,6 +192,38 @@ function SearchCard({ result }: { result: SearchResult }) {
   );
 }
 
+const settings = {
+  dots: false,
+  arrows: false,
+  infinite: results.length > 3,
+  autoplay: true,
+  autoplaySpeed: 4000,
+  speed: 600,
+  pauseOnHover: true,
+  pauseOnFocus: true,
+  swipeToSlide: true,
+  draggable: true,
+  variableWidth: false,
+  slidesToShow: 3.5,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 640,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
 const GoogleAI = () => {
   return (
     <section
@@ -197,21 +232,18 @@ const GoogleAI = () => {
       className="w-full overflow-hidden bg-white px-5 pb-[72px] pt-[89px] text-[#101014] sm:px-8 sm:pt-[94px] lg:pb-[76px]"
     >
       {/* Section heading */}
-      <div className="mx-auto flex max-w-[760px] flex-col items-center text-center">
-        <h2
-          id="foundly-found-title"
-          className="flex flex-col items-center text-[38px] font-medium leading-[1.13] tracking-[-0.06em] sm:text-[48px] lg:text-[58px]"
-        >
-          <span>Pages that get found</span>
-          <span className="mt-[8px] flex flex-wrap items-center justify-center gap-x-[9px]">
-            <span>on</span>
-            <span className="inline-flex items-center gap-0">
-              <GoogleMark className="[&_img]:!h-[45px] [&_img]:!w-[45px]" />
-              <span>oogle</span>
-            </span>
-            <span>&amp;</span>
-            <em className="not-italic font-normal text-[var(--primary-color)]">AI</em>
-          </span>
+      <header className="relative z-40 mx-auto max-w-[820px] text-center">
+        <div className="mb-6 flex items-center justify-center gap-4">
+          <span className="hidden h-px w-20 bg-gradient-to-r from-transparent to-blue-200 sm:block" />
+          <p className="subtitle inline-flex items-center gap-2 rounded-full border border-[#245ae2]/10 bg-gradient-to-r from-white via-[#f5f7ff] to-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--primary-color)] shadow-[0_2px_12px_rgba(36,90,226,0.08)]">
+            <span className="text-base leading-none">✦</span>
+            AI SEARCH READY
+          </p>
+          <span className="hidden h-px w-20 bg-gradient-to-l from-transparent to-blue-200 sm:block" />
+        </div>
+        <h2 className="title mt-4 font-medium leading-[1.08] tracking-[-0.065em]">
+          Built for traditional search and  {' '}
+          <span className="block font-normal text-[var(--primary-color)]">modern AI engines</span>
         </h2>
 
         {/* Search platform logos */}
@@ -233,18 +265,20 @@ const GoogleAI = () => {
           ))}
         </div>
 
-        <p className="mt-[17px] max-w-[460px] text-[18px] sm:text-[20px] leading-[1.6] tracking-[-0.02em] text-[#737381]">
-          We write the page that answers the search, in a way Google and AI can quote.
+        <p className="desc mx-auto mt-5 leading-[1.65] text-[#737381]">
+          Dominate Google results and become the primary source cited by AI assistants.
         </p>
-      </div>
+      </header>
 
-      {/* Horizontal examples strip, matching the clipped card row in the reference */}
-      <div className="mx-auto mt-[58px] max-w-[1240px] overflow-x-auto pb-[6px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mt-[60px] lg:mt-[59px]">
-        <div className="flex w-max gap-[23px]">
+      {/* React Slick slider — card design and dimensions are preserved */}
+      <div className="google-ai-results-slider mx-auto mt-[58px] max-w-[1240px] pb-[6px] sm:mt-[60px] lg:mt-[59px]">
+        <Slider {...settings}>
           {results.map((result) => (
-            <SearchCard key={result.domain} result={result} />
+            <div key={result.domain} className="box-border px-[11.5px] pb-4">
+              <SearchCard result={result} />
+            </div>
           ))}
-        </div>
+        </Slider>
       </div>
     </section>
   );

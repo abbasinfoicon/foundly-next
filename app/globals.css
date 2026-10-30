@@ -4,9 +4,13 @@
   --background: #ffffff;
   --foreground: #171717;
 
-  --primary-color: #6958f5;
+  --primary-color: #245ae2;
+  --primary-color-2: #6958f5;
+
   --primary-shadow: rgba(105, 88, 245, 0.28);
   --secondary-color: #0a0a0a;
+  
+  --gradient-bg: linear-gradient(100deg, var(--primary-color) 0%, #245ae2 48%, #245ae2 100%);
 }
 
 @theme inline {
@@ -41,7 +45,9 @@ body {
 }
 
 .subtitle {
-  font-size: 0.875rem;
+  font-size: 0.813rem;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .title {
@@ -50,4 +56,39 @@ body {
 
 .desc {
   font-size: 1.25rem;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[float_4s_ease-in-out_infinite\] {
+    animation: none;
+  }
+}
+
+.google-ai-results-slider .slick-list {
+  margin: 0;
+  overflow: hidden;
+}
+
+.google-ai-results-slider .slick-track {
+  display: flex;
+  align-items: stretch;
+}
+
+.google-ai-results-slider .slick-slide {
+  height: auto;
+}
+
+.google-ai-results-slider .slick-slide > div {
+  height: 100%;
 }

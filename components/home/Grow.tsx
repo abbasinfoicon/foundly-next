@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import {
   FiGlobe,
@@ -34,167 +35,73 @@ const Grow = () => {
       className="w-full overflow-hidden bg-[#faf9ff] px-5 py-16 text-[#111116] sm:px-8 sm:py-20 lg:px-10 lg:pb-24 lg:pt-[94px]"
     >
       {/* Section heading */}
-      <div className="mx-auto max-w-5xl text-center">
-        <h2
-          id="foundly-steps-title"
-          className="text-[34px] font-medium leading-[1.12] tracking-[-0.055em] sm:text-[42px] md:text-[48px] lg:text-[58px]"
-        >
-          3 steps to grow with{" "}
-          <span className="font-normal text-[var(--primary-color)]">Foundly.ai</span>
+      <header className="relative z-40 mx-auto max-w-[820px] text-center">
+        <div className="mb-6 flex items-center justify-center gap-4">
+          <span className="hidden h-px w-20 bg-gradient-to-r from-transparent to-blue-200 sm:block" />
+          <p className="subtitle inline-flex items-center gap-2 rounded-full border border-[#245ae2]/10 bg-gradient-to-r from-white via-[#f5f7ff] to-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--primary-color)] shadow-[0_2px_12px_rgba(36,90,226,0.08)]">
+            <span className="text-base leading-none">✦</span>
+            EASY AUTOMATION
+          </p>
+          <span className="hidden h-px w-20 bg-gradient-to-l from-transparent to-blue-200 sm:block" />
+        </div>
+
+        <h2 className="title mt-4 font-medium leading-[1.08] tracking-[-0.065em]">
+          3 simple steps to grow {" "}
+          <span className="font-normal text-[var(--primary-color)]">with Foundly.ai</span>
         </h2>
-        <p className="mx-auto mt-5 max-w-[340px] text-[18px] sm:text-[20px] leading-[1.65] text-[#737381] sm:max-w-[390px]">
-          You add your website. It writes and publishes. Customers find you.
+        <p className="desc mx-auto mt-5 leading-[1.65] text-[#737381]">
+          No marketing team needed. Just plug in your business and let AI scale your presence.
         </p>
-      </div>
+      </header>
 
       {/* Three-step layout */}
-      <ol className="mx-auto mt-14 grid max-w-[1240px] grid-cols-1 gap-12 sm:mt-16 sm:gap-14 md:grid-cols-3 md:gap-8 lg:mt-[112px] lg:gap-[70px]">
+      <ol className="mx-auto mt-12 grid max-w-[1240px] grid-cols-1 sm:mt-14 md:grid-cols-3 lg:mt-16">
         {/* Step 1: Add your business */}
         <li className="min-w-0 text-center">
-          <div className="relative mx-auto flex h-[250px] w-full max-w-[340px] items-start justify-center sm:h-[260px] mb-[52px]">
-            <SparkMarks className="-left-2 top-[-8px] sm:left-[-4px]" />
-            <div className="relative mt-0 flex h-[236px] w-full max-w-[284px] flex-col justify-center rounded-[20px] border border-[#e9e8ef] bg-white px-[19px] shadow-[0_16px_42px_rgba(31,28,60,0.12)] sm:h-[236px] sm:px-[19px]">
-              <p className="mb-[14px] text-left text-[16px] sm:text-[18px] font-medium tracking-[-0.035em]">
-                Your business
-              </p>
-              <div className="flex h-[45px] items-center gap-[9px] rounded-[12px] border border-[#e3e2e9] bg-[#f7f7fa] px-[13px] text-[#898995]">
-                <FiGlobe className="h-[16px] w-[16px] shrink-0" />
-                <span className="text-[14px] font-medium text-[#555563]">
-                  yourbusiness.com
-                </span>
-                <span className="h-[17px] w-[1.5px] animate-pulse bg-[var(--primary-color)]" />
-              </div>
-              <div className="mt-[13px] flex h-[49px] items-center justify-center gap-2 rounded-[12px] bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] text-[16px] font-semibold text-white shadow-[0_12px_22px_rgba(104,86,245,0.25)]">
-                Get started <FiArrowRight className="h-[17px] w-[17px]" />
-              </div>
-            </div>
+          <div className="relative mx-auto flex w-full items-start justify-center mb-[52px]">
+            <Image src="/assets/image/bg/image-1.webp" alt="bg-image" width="414" height="297" className="w-full"/>
           </div>
-          <h3 className="mt-[2px] text-[20px] font-medium leading-tight tracking-[-0.045em] sm:text-[25px]">
-            1. Add your business
-          </h3>
-          <p className="mx-auto mt-[11px] max-w-[330px] text-[14px] leading-[1.65] text-[#737381] sm:text-[16px]">
-            Give it your website address. It learns what you do in minutes.
-          </p>
+
+          <div className="relative max-w-[340px]">
+            <h3 className="mt-[2px] text-[20px] font-medium leading-tight tracking-[-0.045em] sm:text-[25px]">
+              1. Add your website
+            </h3>
+            <p className="mx-auto mt-[11px] text-[14px] leading-[1.65] text-[#737381] sm:text-[16px]">
+              Enter your business website address. Foundly.ai learns your brand voice, services, and industry in minutes.
+            </p>
+          </div>
         </li>
 
         {/* Step 2: AI content ideas */}
         <li className="min-w-0 text-center">
-          <div className="relative mx-auto flex h-[250px] w-full max-w-[340px] items-start justify-center sm:h-[260px] mb-[52px]">
-            <SparkMarks className="right-[-3px] top-[-8px]" />
-            <div className="absolute right-[13px] top-[32px] h-[158px] w-[calc(100%-45px)] max-w-[260px] rounded-[20px] bg-[#efedff] rotate-[5deg]" />
-            <div className="relative z-10 mt-0 w-full max-w-[284px] rounded-[20px] border border-[#e9e8ef] bg-white px-[19px] pb-[22px] pt-[23px] text-left shadow-[0_16px_42px_rgba(31,28,60,0.12)]">
-              <header className="mb-[14px] flex items-center gap-[11px]">
-                <span className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[11px] bg-[#f0eeff] text-[var(--primary-color)]">
-                  <HiOutlineSparkles className="h-[20px] w-[20px]" />
-                </span>
-                <p className="text-[16px] sm:text-[18px] font-medium tracking-[-0.035em]">
-                  AI Content Ideas
-                </p>
-              </header>
-              <ul className="space-y-[8px]">
-                <li className="flex h-[42px] items-center gap-[9px] rounded-[12px] border border-[#e8e7ed] px-[11px]">
-                  <FiFileText className="h-[15px] w-[15px] shrink-0 text-[var(--primary-color)]" />
-                  <span className="whitespace-nowrap text-[14px] font-medium tracking-[-0.025em]">
-                    Blog post
-                  </span>
-                  <span className="h-[7px] flex-1 rounded-full bg-[#efeff3]" />
-                </li>
-                <li className="flex h-[42px] items-center gap-[9px] rounded-[12px] border border-[#e8e7ed] px-[11px]">
-                  <FiMapPin className="h-[15px] w-[15px] shrink-0 text-[var(--primary-color)]" />
-                  <span className="whitespace-nowrap text-[14px] font-medium tracking-[-0.04em]">
-                    Google listing update
-                  </span>
-                  <span className="h-[7px] min-w-4 flex-1 rounded-full bg-[#efeff3]" />
-                </li>
-                <li className="flex h-[42px] items-center gap-[9px] rounded-[12px] border border-[#e8e7ed] px-[11px]">
-                  <FiMessageSquare className="h-[15px] w-[15px] shrink-0 text-[var(--primary-color)]" />
-                  <span className="whitespace-nowrap text-[14px] font-medium tracking-[-0.025em]">
-                    Social post
-                  </span>
-                  <span className="h-[7px] flex-1 rounded-full bg-[#efeff3]" />
-                </li>
-              </ul>
-            </div>
-            <div className="absolute bottom-[-2px] right-[-2px] z-20 flex h-[42px] items-center gap-[9px] rounded-full bg-white px-[15px] text-[14px] font-medium shadow-[0_12px_28px_rgba(31,28,60,0.13)] sm:right-[-7px]">
-              <span className="flex h-[19px] w-[19px] items-center justify-center rounded-full bg-[var(--primary-color)] text-white">
-                <FiCheck className="h-[13px] w-[13px]" />
-              </span>
-              Approve &amp; publish
-            </div>
-            <svg
-              className="absolute bottom-[-16px] right-[-14px] z-30 h-[22px] w-[20px] fill-[#111116] drop-shadow-sm"
-              viewBox="0 0 20 22"
-              aria-hidden="true"
-            >
-              <path d="M1.5 1 18 11.2l-7.1 1.5L7.8 20Z" />
-            </svg>
+          <div className="relative mx-auto flex w-full items-start justify-center mb-[52px]">
+            <Image src="/assets/image/bg/image-2.webp" alt="bg-image" width="414" height="297" className="w-full"/>
           </div>
-          <h3 className="mt-[2px] text-[20px] font-medium leading-tight tracking-[-0.045em] sm:text-[22px]">
-            2. It writes your content
-          </h3>
-          <p className="mx-auto mt-[11px] max-w-[340px] text-[14px] leading-[1.65] text-[#737381] sm:text-[15px]">
-            Pages for your site, posts for social, and your Google listing kept right.
-          </p>
+
+          <div className="relative max-w-[340px]">
+            <h3 className="mt-[2px] text-[20px] font-medium leading-tight tracking-[-0.045em] sm:text-[22px]">
+              2. AI writes & creates content
+            </h3>
+           <p className="mx-auto mt-[11px] text-[14px] leading-[1.65] text-[#737381] sm:text-[16px]">
+              Get high-ranking blog posts, updated Google Business listings, and engaging social posts generated for you.
+            </p>
+          </div>
         </li>
 
         {/* Step 3: Growth dashboard */}
         <li className="min-w-0 text-center">
-          <div className="relative mx-auto flex h-[250px] w-full max-w-[340px] items-start justify-center sm:h-[260px] mb-[52px]">
-            <SparkMarks className="right-[-3px] top-[-8px]" />
-            <div className="relative mt-0 h-[236px] w-full max-w-[284px] rounded-[20px] border border-[#e9e8ef] bg-white px-[18px] pb-[15px] pt-[18px] text-left shadow-[0_16px_42px_rgba(31,28,60,0.12)]">
-              <header className="flex items-center justify-between">
-                <p className="text-[16px] sm:text-[18px] font-medium tracking-[-0.035em]">Growth</p>
-                <span className="rounded-[8px] border border-[#e8e7ed] px-[10px] py-[6px] text-[12px] text-[#777783]">
-                  Last 6 months
-                </span>
-              </header>
-              <div className="mt-[10px] grid grid-cols-3 gap-[7px]">
-                <div className="flex h-[83px] flex-col rounded-[12px] bg-[#f0eeff] px-[8px] py-[8px]">
-                  <FiSearch className="mb-[5px] h-[14px] w-[14px] text-[var(--primary-color)]" />
-                  <strong className="text-[17px] font-medium leading-[1.1] tracking-[-0.05em]">+248%</strong>
-                  <span className="mt-[3px] text-[10px] leading-[1.25] text-[#737381]">Search visibility</span>
-                </div>
-                <div className="flex h-[83px] flex-col rounded-[12px] bg-[#f0eeff] px-[7px] py-[8px]">
-                  <FiUsers className="mb-[5px] h-[14px] w-[14px] text-[var(--primary-color)]" />
-                  <strong className="text-[17px] font-medium leading-[1.1] tracking-[-0.05em]">+141%</strong>
-                  <span className="mt-[3px] text-[10px] leading-[1.25] text-[#737381]">Website visitors</span>
-                </div>
-                <div className="flex h-[83px] flex-col rounded-[12px] bg-[#f0eeff] px-[7px] py-[8px]">
-                  <FiFilter className="mb-[5px] h-[14px] w-[14px] text-[var(--primary-color)]" />
-                  <strong className="text-[17px] font-medium leading-[1.1] tracking-[-0.05em]">+92%</strong>
-                  <span className="mt-[3px] text-[10px] leading-[1.25] text-[#737381]">New customers</span>
-                </div>
-              </div>
-              <div className="mt-[17px] h-[65px] w-full">
-                <svg
-                  viewBox="0 0 300 104"
-                  preserveAspectRatio="none"
-                  className="h-full w-full overflow-visible"
-                  aria-hidden="true"
-                >
-                  <line x1="0" x2="300" y1="26" y2="26" stroke="#ececf1" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-                  <line x1="0" x2="300" y1="52" y2="52" stroke="#ececf1" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-                  <line x1="0" x2="300" y1="78" y2="78" stroke="#ececf1" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-                  <line x1="0" x2="300" y1="104" y2="104" stroke="#dadce0" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-                  <path
-                    d={growthPoints}
-                    pathLength="1"
-                    fill="none"
-                    stroke="#4285f4"
-                    strokeWidth="1.5"
-                    strokeLinejoin="round"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                </svg>
-              </div>
-            </div>
+          <div className="relative mx-auto flex w-full items-start justify-center mb-[52px]">
+            <Image src="/assets/image/bg/image-3.webp" alt="bg-image" width="414" height="297" className="w-full"/>
           </div>
-          <h3 className="mt-[2px] text-[20px] font-medium leading-tight tracking-[-0.045em] sm:text-[22px]">
-            3. Get found, get customers
-          </h3>
-          <p className="mx-auto mt-[11px] max-w-[340px] text-[14px] leading-[1.65] text-[#737381] sm:text-[15px]">
-            You show up when people search, and more of them become customers.
-          </p>
+
+          <div className="relative max-w-[340px]">
+            <h3 className="mt-[2px] text-[20px] font-medium leading-tight tracking-[-0.045em] sm:text-[22px]">
+              3. Get found & gain customers
+            </h3>
+           <p className="mx-auto mt-[11px] text-[14px] leading-[1.65] text-[#737381] sm:text-[16px]">
+              Rank higher on Google and AI search engines to turn high-intent searchers into paying clients.
+            </p>
+          </div>
         </li>
       </ol>
     </section>
