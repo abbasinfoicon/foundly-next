@@ -122,7 +122,7 @@ function IntegrationArtwork({ index, featured }: { index: number; featured?: boo
     <svg
       aria-hidden="true"
       viewBox="0 0 240 132"
-      className="pointer-events-none absolute -bottom-[2px] -right-[2px] w-[230px] max-w-[100%]"
+      className="pointer-events-none absolute -bottom-[2px] -right-[2px] w-full max-w-[100%]"
       fill="none"
     >
       <path d="M0 76C42 48 65 103 111 75C153 49 177 67 240 20V132H0V76Z" fill={accent} opacity=".075" />

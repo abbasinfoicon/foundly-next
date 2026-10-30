@@ -56,7 +56,7 @@ export default function CTA() {
     >
       <div className="mx-auto max-w-[1280px]">
         {/* Foundly.ai closing CTA panel */}
-        <div className="relative flex min-h-[590px] flex-col items-center overflow-hidden rounded-[34px] bg-[radial-gradient(ellipse_at_top,_#1b1a29_0%,_#121216_50%,_#121216_100%)] px-5 pb-[72px] pt-[76px] text-center text-white sm:min-h-[590px] sm:px-10 sm:pt-[76px] bg-cover bg-no-repeat"
+        <div className="relative flex min-h-[590px] flex-col items-center overflow-hidden rounded-[34px] bg-[radial-gradient(ellipse_at_top,_#1b1a29_0%,_#121216_50%,_#121216_100%)] px-5 pb-[72px] pt-[76px] text-center text-white sm:min-h-[590px] sm:px-10 sm:pt-[76px] bg-cover bg-no-repeat bg-center"
       style={{ backgroundImage: "url('/assets/image/bg/cta-bg.webp')" }}>
           {/* Search engine and AI platform logo stack */}
           <div className="flex items-center justify-center" aria-hidden="true">
