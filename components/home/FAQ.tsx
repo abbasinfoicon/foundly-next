@@ -108,18 +108,22 @@ export default function FAQ() {
     >
       <div className="mx-auto max-w-[940px]">
         {/* Foundly.ai FAQ section heading */}
-        <header className="mb-[42px] text-center">
-          <p className="mb-3 text-[11px] sm:text-[13px] font-medium uppercase tracking-[0.13em] text-[var(--primary-color)]">
-            FAQ
-          </p>
-          <h2
-            id="foundly-faq-title"
-            className="text-[38px] font-medium leading-[1.08] tracking-[-0.065em] sm:text-[48px] lg:text-[58px]"
-          >
-            Frequently asked
-            <br />
-            <span className="text-[var(--primary-color)]">questions</span> about Foundly.ai
+        <header className="mx-auto mb-[42px] max-w-[991px] text-center">
+          <div className="mb-6 flex items-center justify-center gap-4">
+            <span className="hidden h-px w-20 bg-gradient-to-r from-transparent to-blue-200 sm:block" />
+            <p className="subtitle inline-flex items-center gap-2 rounded-full border border-[#245ae2]/10 bg-gradient-to-r from-white via-[#f5f7ff] to-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.08em] text-[var(--primary-color)] shadow-[0_2px_12px_rgba(36,90,226,0.08)]">
+              <span className="text-base leading-none">✦</span>
+              NEED HELP?
+            </p>
+            <span className="hidden h-px w-20 bg-gradient-to-l from-transparent to-blue-200 sm:block" />
+          </div>
+          <h2 className="title mt-4 font-medium leading-[1.08] tracking-[-0.065em]">
+            Everything you {' '}
+            <span className="text-[var(--primary-color)]">need to know</span> about Foundly.ai
           </h2>
+          <p className="desc mx-auto mt-5 leading-[1.65] text-[#737381]">
+            Have questions before getting started? Find quick answers to common queries here.
+          </p>
         </header>
 
         {/* Accessible accordion list */}
@@ -174,14 +178,14 @@ export default function FAQ() {
         </div>
 
         {/* Consultation callout */}
-        <div className="mt-[9px] flex items-center justify-between gap-4 rounded-[14px] border border-[#d9d2ff] bg-[#f0edff] px-[19px] py-[17px]">
+        <div className="mt-[9px] flex items-center justify-between gap-4 rounded-[14px] border border-[#d9d2ff] bg-[var(--primary-color)] px-[19px] py-[17px]">
           <div className="min-w-0">
-            <strong className="block text-[16px] sm:text-[20px] font-medium tracking-[-0.025em]">
+            <strong className="block text-[16px] sm:text-[20px] font-medium tracking-[-0.025em] text-white">
               Need an SEO walkthrough?
             </strong>
             <Link
               href="/contact"
-              className="mt-1 block text-[12px] sm:text-[15px] text-[var(--primary-color)] hover:underline"
+              className="mt-1 block text-[12px] sm:text-[15px] text-white/70 hover:underline"
             >
               Book a free consultation
             </Link>

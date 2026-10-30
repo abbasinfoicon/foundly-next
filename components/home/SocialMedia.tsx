@@ -186,7 +186,7 @@ function IntegrationGroup({
           <li key={item.name} className="h-full min-w-0">
             <Link
               href={item.href}
-              className={`group relative isolate flex h-[294px] w-full flex-col overflow-hidden rounded-[24px] border p-2 pb-0 text-left shadow-[0_10px_28px_rgba(50,83,150,0.07)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(50,83,150,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245ae2] focus-visible:ring-offset-2 ${item.featured
+              className={`group relative isolate flex h-[294px] w-full flex-col overflow-hidden rounded-[24px] border p-2 pb-0 text-left shadow-[0_10px_28px_rgba(50,83,150,0.09)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(50,83,150,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#245ae2] focus-visible:ring-offset-2 ${item.featured
                   ? "border-[#8c78ff] bg-gradient-to-br from-[#f5f2ff] via-white to-[#eee8ff] shadow-[0_8px_28px_rgba(112,87,255,0.12)]"
                   : "border-white/90 bg-white/90 hover:border-[#c9dcff]"
                 }`}
@@ -227,7 +227,8 @@ export default function SocialMedia() {
     <section
       id="platforms"
       aria-labelledby="foundly-platforms-title"
-      className="relative isolate overflow-hidden px-4 py-16 text-[#11111a] sm:px-6 sm:py-[72px] lg:px-8"
+      className="relative isolate overflow-hidden px-4 py-16 text-[#11111a] sm:px-6 sm:py-[72px] lg:px-8 bg-contains bg-no-repeat bg-bottom"
+      style={{backgroundImage: "url('/assets/image/bg/seamless-bg.webp')"}}
     >
       <div className="relative mx-auto max-w-[1240px]">
         <header className="mx-auto mb-[58px] max-w-[620px] text-center">

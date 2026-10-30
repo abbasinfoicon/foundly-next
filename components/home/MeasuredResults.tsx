@@ -269,7 +269,7 @@ export default function MeasuredResults() {
   }), [selected]);
 
   return (
-    <section id="results-proof" aria-labelledby="measured-results-title" className="mr-results-section w-full overflow-hidden bg-[#f3f6ff] px-4 pb-[76px] pt-[84px] text-[#101936] sm:px-6 lg:px-8">
+    <section id="results-proof" aria-labelledby="measured-results-title" className="mr-results-section w-full overflow-hidden bg-[#f3f6ff] px-4 pb-[76px] pt-[84px] text-[#101936] sm:px-6 lg:px-8 bg-contain bg-right-top bg-no-repeat" style={{backgroundImage: "url('/assets/image/bg/chart-bg.webp')"}}>
       {/* Keep the existing section heading exactly as supplied */}
       <header className="mx-auto flex max-w-[720px] flex-col items-center text-center">
         <div className="mb-6 flex items-center justify-center gap-4">
